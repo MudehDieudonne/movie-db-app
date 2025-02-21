@@ -2,6 +2,12 @@
   margin-left: 10px;
   color: white;
 }
+
+.row.rows {
+  margin-top: -20em;
+  margin-bottom: 5em;
+}
+
 .row h2 {
   margin-left: 15px;
 }

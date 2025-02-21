@@ -34,11 +34,11 @@
 .topnav input[type=text] {
   float: right;
   padding: 6px;
-  border: none;
+  border: 1px solid rgba(197, 195, 195, 0.863);
   margin-top: 8px;
   margin-right: 16px;
   font-size: 17px;
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: transparent;
 }
 

@@ -31,7 +31,7 @@ const Rows = ({ title, fetchUrl, isLargeRow }) => {
   }, [fetchUrl])
 
   return (
-    <div className="row">
+    <div className="row rows">
       <h2>{title}</h2>
     
       {isLoading ? (

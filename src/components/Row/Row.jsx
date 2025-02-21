@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import Loader from "../Loader/Loader"
+import { Router, Route, useNavigate } from "react-router-dom"
 import "./Row.css"
 
 const baseUrl = "https://image.tmdb.org/t/p/original"
@@ -9,6 +10,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
   const [movies, setMovies] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Optional: Create an AbortController to cancel the request if the component unmounts
@@ -39,7 +41,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
   }, [fetchUrl])
 
   const handleClick = (movie) => {
-    // Add your logic here
+    navigate(`/detail/${movie.id}`, { state: { movie } })
     console.log(movie)
   }
 
