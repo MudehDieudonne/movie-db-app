@@ -1,0 +1,14 @@
+footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(194, 194, 194, 0.945);
+  margin: 2em 0;
+  padding: 2em;
+}
+
+.copy-right {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 2em;
+  border-top: 1px solid rgba(194, 194, 194, 0.815);
+}
