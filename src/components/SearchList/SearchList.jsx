@@ -1,24 +1,26 @@
-import React from "react"
-import './SearchList.css'
+import React from "react";
+import "./SearchList.css";
 
-const baseUrl = "https://image.tmdb.org/t/p/original"
+const baseUrl = "https://image.tmdb.org/t/p/original";
 
-const MovieList = (props) => {
-    
+const MovieList = ({ movies }) => {
+  return (
+    <div className="search-results">
+      {movies.map((movie) => {
+        return (
+          <div className="card" key={movie.id}>
+            <img src={`${baseUrl}${movie.backdrop_path}`} alt={movie.title} />
+            <div className="container">
+              <h4>
+                <b>{movie.title}</b>
+              </h4>
+              
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
-    return (
-        <>
-            {props.movies.map((movie) => {
-            <div class="card">
-            <img src={`${baseUrl}${movie.backdrop_path}`} alt='title'/>
-                  <div class="container">
-                      <h4><b>John Doe</b></h4>
-                      <p>Architect & Engineer</p>
-                  </div>
-              </div>
-            })}
-        </>
-    )
-}
-
-export default MovieList
+export default MovieList;

@@ -56,3 +56,70 @@
   max-height: 250px;
 }
 
+/* @media (max-width: 768px) {
+  .row {
+    margin-left: 5px;
+  }
+
+  .row.rows {
+    margin-top: -6em;
+    margin-bottom: 3em;
+  }
+
+  .row h2 {
+    margin-left: 10px;
+    font-size: 18px;
+  }
+
+  .row-posters {
+    display: flex;
+    overflow-x: auto;
+    gap: 4em;
+    padding: 10px;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+  }
+
+  .row-posters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .trendx {
+    gap: 0.5em;
+    max-width: 200px;
+    max-height: 220px;
+  }
+
+  .trend-num {
+    font-size: 150px;
+    line-height: 180px;
+  }
+
+  .row-poster {
+    top: 50px;
+    left: 40px;
+    width: 100px;
+    max-height: 140px;
+  }
+} */
+
+@keyframes autoScroll {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.trendx {
+  animation: autoScroll 10s linear infinite;
+}
+
+.row-posters:hover {
+  animation-play-state: paused;
+}
+
