@@ -9,6 +9,7 @@ const baseUrl = "https://image.tmdb.org/t/p/original"
 const Row = ({ title, fetchUrl, isLargeRow }) => {
   const [movies, setMovies] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [filteredMovies, setFilteredMovies] = useState([])
   const [error, setError] = useState(null)
   const navigate = useNavigate();
 
@@ -20,7 +21,10 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
       try {
         setIsLoading(true)
         const request = await axios.get(fetchUrl)
+        
         setMovies(request.data.results || [])
+        setFilteredMovies(request.data.results)
+
         setError(null)
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -43,6 +47,13 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
   const handleClick = (movie) => {
     navigate(`/detail/${movie.id}`, { state: { movie } })
     console.log(movie)
+  }
+
+  const handleSearch = query => {
+    const filtered = movies.filter((movie) => {
+      movie.title.toLowerCase().includes(query.toLowerCase())
+    })
+    setFilteredMovies(filtered)
   }
 
   return (

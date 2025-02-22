@@ -15,6 +15,7 @@ const Rows = ({ title, fetchUrl, isLargeRow }) => {
       try {
         setIsLoading(true)
         const request = await axios.get(fetchUrl)
+        
         setMovies(request.data.results || [])
         setError(null)
       } catch (err) {
@@ -43,6 +44,7 @@ const Rows = ({ title, fetchUrl, isLargeRow }) => {
         <div className="row__posters">
           {movies.length > 0 ? (
             movies.map((movie, index) => (
+            
               <img
                 key={movie.id}
                 className={`row__poster ${isLargeRow && "row__posterLarge"}`}
