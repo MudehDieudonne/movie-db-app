@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import Loader from "../Loader/Loader"
 import "./Rows.css"
+import { span } from "motion/react-client"
 
 const baseUrl = "https://image.tmdb.org/t/p/original"
 
@@ -41,17 +42,18 @@ const Rows = ({ title, fetchUrl, isLargeRow }) => {
         <div>{error}</div>
       ) : (
         
-        <div className="row__posters">
+        <div className="row-posters">
           {movies.length > 0 ? (
             movies.map((movie, index) => (
-            
-              <img
-                key={movie.id}
-                className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-                src={`${baseUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
-                alt={movie.name || movie.title}
-              />
-              
+              <div className="trendx" key={movie.id}>
+                <span className="trend-num">{index+1}</span>
+                <img
+                  className={`row-poster ${isLargeRow && "row__posterLarge"}`}
+                  src={`${baseUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
+                  alt={movie.name || movie.title}
+                />
+              </div>
+                
             ))
           ) : (
             <div>No movies found.</div>
