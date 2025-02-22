@@ -34,6 +34,9 @@
 .rowls {
   max-width: 401px;
   height: 36px;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 0.6em;
 }
 
 .movietype {
