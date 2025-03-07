@@ -15,17 +15,17 @@ footer {
 
 @media (max-width: 767px) {
   footer {
-    flex-direction: column; /* Stack footer content vertically */
-    align-items: center; /* Center align content */
-    padding: 1em; /* Reduce padding for mobile */
-    margin: 1em 0; /* Reduce margin for mobile */
-    text-align: center; /* Center align text */
+    flex-direction: column;
+    align-items: left;
+    padding: 1em;
+    margin: 1em 0;
+    text-align: left;
   }
 
   .copy-right {
-    flex-direction: column; /* Stack copyright content vertically */
-    align-items: center; /* Center align content */
-    padding: 1em; /* Reduce padding for mobile */
-    text-align: center; /* Center align text */
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+    text-align: center;
   }
 }

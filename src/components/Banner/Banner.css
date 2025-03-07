@@ -122,10 +122,6 @@
     gap: 0.5em;
   }
 
-  .row.rows {
-    margin-bottom: 5em;
-}
-
   .movietype {
     max-width: 100%;
     height: auto;

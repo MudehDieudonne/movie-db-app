@@ -77,3 +77,14 @@
   animation-play-state: paused;
 }
 
+@media (max-width: 320px) {
+  .row.rows {
+    margin-top: -1em;
+    margin-bottom: 5em;
+  }
+
+  .row-posters::-webkit-scrollbar {
+    display: none;
+  }
+
+}
