@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import axios from "axios"
-import Row from "../Row/Row" // Import Row component
+import Row from "../Row/Row"
 import "./Detail.css"
 
 const baseUrl = "https://image.tmdb.org/t/p/original";
-const apiKey = "eab119f4519b3c48189fd1039aea8fed"; // Replace with your actual API key
+const apiKey = "eab119f4519b3c48189fd1039aea8fed";
 
 const Detail = () => {
-  const { id } = useParams() // Get movie ID from URL
+  const { id } = useParams()
   const location = useLocation()
   const movie = location.state?.movie
 
@@ -40,11 +40,13 @@ const Detail = () => {
 
   return (
     <div className="detail">
-      <div className="detail-poster">
-        <img
+      <div className="detail-poster" style={{
+        backgroundImage:`linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(3, 3, 3, 0.63)), url(${baseUrl}${movie.poster_path})`
+      }}>
+        {/* <img
             src={`${baseUrl}${movie.poster_path}`}
             alt={movie.title || movie.name}
-        />
+        /> */}
       </div>
       <div className="detail-info">
         <h2>{movie.title || movie.name}</h2>
@@ -69,7 +71,7 @@ const Detail = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Detail;
+export default Detail

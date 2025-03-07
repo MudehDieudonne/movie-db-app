@@ -44,7 +44,7 @@
   top: 97px;
   left: 80px;
   width: 138px;
-  max-height: 178px;
+  height: 178px;
   transition: transform 400ms;
   border-radius: 12px;
 }
@@ -56,52 +56,6 @@
   max-height: 250px;
 }
 
-/* @media (max-width: 768px) {
-  .row {
-    margin-left: 5px;
-  }
-
-  .row.rows {
-    margin-top: -6em;
-    margin-bottom: 3em;
-  }
-
-  .row h2 {
-    margin-left: 10px;
-    font-size: 18px;
-  }
-
-  .row-posters {
-    display: flex;
-    overflow-x: auto;
-    gap: 4em;
-    padding: 10px;
-    white-space: nowrap;
-    scroll-behavior: smooth;
-  }
-
-  .row-posters::-webkit-scrollbar {
-    display: none;
-  }
-
-  .trendx {
-    gap: 0.5em;
-    max-width: 200px;
-    max-height: 220px;
-  }
-
-  .trend-num {
-    font-size: 150px;
-    line-height: 180px;
-  }
-
-  .row-poster {
-    top: 50px;
-    left: 40px;
-    width: 100px;
-    max-height: 140px;
-  }
-} */
 
 @keyframes autoScroll {
   0% {

@@ -41,11 +41,3 @@
   font-weight: bold;
   color: #333;
 }
-
-/* Movie description */
-.container p {
-  margin: 10px 0 0;
-  font-size: 14px;
-  color: #666;
-  line-height: 1.4;
-}

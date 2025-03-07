@@ -1,7 +1,19 @@
 .row {
   margin-left: 10px;
   color: white;
+  position: relative;
 }
+
+.row::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  margin: 0;
+  width: 5%;
+  height: 100%;
+  background: linear-gradient(-45deg, #00000080, #0000002a);
+}
+
 .row h2 {
   margin-left: 15px;
 }
@@ -31,4 +43,6 @@
 .row__posterLarge {
   max-height: 250px;
 }
+
+
 

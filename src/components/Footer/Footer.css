@@ -12,3 +12,20 @@ footer {
   padding: 1em 2em;
   border-top: 1px solid rgba(194, 194, 194, 0.815);
 }
+
+@media (max-width: 767px) {
+  footer {
+    flex-direction: column; /* Stack footer content vertically */
+    align-items: center; /* Center align content */
+    padding: 1em; /* Reduce padding for mobile */
+    margin: 1em 0; /* Reduce margin for mobile */
+    text-align: center; /* Center align text */
+  }
+
+  .copy-right {
+    flex-direction: column; /* Stack copyright content vertically */
+    align-items: center; /* Center align content */
+    padding: 1em; /* Reduce padding for mobile */
+    text-align: center; /* Center align text */
+  }
+}
