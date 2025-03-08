@@ -1,0 +1,31 @@
+footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(194, 194, 194, 0.945);
+  margin: 2em 0;
+  padding: 2em;
+}
+
+.copy-right {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 2em;
+  border-top: 1px solid rgba(194, 194, 194, 0.815);
+}
+
+@media (max-width: 767px) {
+  footer {
+    flex-direction: column;
+    align-items: left;
+    padding: 1em;
+    margin: 1em 0;
+    text-align: left;
+  }
+
+  .copy-right {
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+    text-align: center;
+  }
+}
