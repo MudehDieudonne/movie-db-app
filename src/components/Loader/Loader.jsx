@@ -1,11 +1,10 @@
-import React from "react"
 import './Loader.css'
 
 const Loader = () => {
-    return(
-        <div class="loader">
-            <span class="loader-text">loading</span>
-            <span class="load"></span>
+    return (
+        <div className="loader-overlay">
+            <div className="loader-spinner"></div>
+            <span className="loader-text">Loading Screen...</span>
         </div>
     )
 }

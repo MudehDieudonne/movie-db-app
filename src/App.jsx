@@ -17,6 +17,10 @@ function App() {
   const [searchValue, setSearchValue] = useState('')
 
   const getMovieRequest = async (searchValue) => {
+    if (!searchValue) {
+      setMovies([])
+      return
+    }
     const url = `https://api.themoviedb.org/3/search/movie?api_key=eab119f4519b3c48189fd1039aea8fed&query=${searchValue}`
 
     const res = await fetch(url)
@@ -27,44 +31,57 @@ function App() {
     }
   }
 
-  useEffect (() => {
-    getMovieRequest(searchValue)
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      getMovieRequest(searchValue)
+    }, 500)
+
+    return () => clearTimeout(delayDebounceFn)
   }, [searchValue])
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 40}}
-      animate={{ opacity: 1, y: 5 }}
-      transition={{ duration: 1.9 }}
-    >
-      <Router>
-        <div className="header">
+    <Router>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="app-container"
+      >
         <Navbar />
-        <Search searchValue = {searchValue} setSearchValue = {setSearchValue} />
-        <MovieList movies={movies} />
-        </div>
-        <Routes>
-          {/* Home Page with Movies Listing */}
-          <Route 
-            path="/" 
-            element={
-              <>
-                <Banner />
-                <Rows title="Latest & Trending" fetchUrl={Requests.fetchTrending} />
-                <Row title="Top Searches" fetchUrl={Requests.fetchTopRated} />
-                <Row title="Action" fetchUrl={Requests.fetchAnimationMovies} />
-                <Row title="Romance & Drama" fetchUrl={Requests.fetchRomanceMovies} />
-                <Row title="Netflix Originals" fetchUrl={Requests.fetchFantasyMovies} />
-              </>
-            } 
-          />
 
-          {/* Movie Detail Page */}
-          <Route path="/detail/:id" element={<Detail />} />
-        </Routes>
+        <main className="main-content">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+                  {searchValue ? (
+                    <MovieList movies={movies} />
+                  ) : (
+                    <>
+                      <Banner />
+                      <div className="rows-container">
+                        <Rows title="Latest & Trending" fetchUrl={Requests.fetchTrending} />
+                        <Row title="Top Rated" fetchUrl={Requests.fetchTopRated} />
+                        <Row title="Action" fetchUrl={Requests.fetchAnimationMovies} />
+                        <Row title="Romance & Drama" fetchUrl={Requests.fetchRomanceMovies} />
+                        <Row title="Fantasy" fetchUrl={Requests.fetchNetflixOriginals} />
+                      </div>
+                    </>
+                  )}
+                </>
+              }
+            />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/trending" element={<div className="coming-soon">Trending Page Coming Soon</div>} />
+            <Route path="/favorites" element={<div className="coming-soon">Favorites Page Coming Soon</div>} />
+          </Routes>
+        </main>
+
         <Footer />
-      </Router>
-    </motion.div>
+      </motion.div>
+    </Router>
   );
 }
 

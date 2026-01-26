@@ -17,6 +17,7 @@
 .row h2 {
   margin-left: 15px;
 }
+
 .row__posters {
   display: flex;
   overflow-y: hidden;
@@ -36,6 +37,7 @@
   transition: transform 400ms;
   border-radius: 12px;
 }
+
 .row__poster:hover {
   transform: scale(1.1);
 }
@@ -44,5 +46,35 @@
   max-height: 250px;
 }
 
+.trendx {
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s;
+  display: flex;
+  align-items: flex-end;
+}
 
+.trendx:hover {
+  transform: scale(1.05);
+}
 
+.trend-num {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  font-size: 8rem;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.8);
+  -webkit-text-stroke: 2px #fff;
+  z-index: -1;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .trend-num {
+    font-size: 5rem;
+    bottom: -10px;
+    left: -10px;
+  }
+}

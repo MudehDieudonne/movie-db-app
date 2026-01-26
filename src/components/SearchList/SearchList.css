@@ -1,43 +1,97 @@
-/* Container for the search results */
-.search-results {
+.search-results-container {
+  padding: 20px 40px;
+  background: #000;
+}
+
+.search-results-title {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 25px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.search-results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
-  gap: 20px; /* Space between cards */
-  padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 25px;
 }
 
-/* Individual movie card */
-.card {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+.movie-card {
+  background: #111;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid #222;
 }
 
-/* Hover effect for cards */
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.movie-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: #ffd700;
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.1);
 }
 
-/* Movie image */
-.card img {
+.movie-card-poster {
+  position: relative;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+}
+
+.movie-card-poster img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* Container for text content */
-.container {
-  padding: 15px;
+.movie-card-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
 }
 
-/* Movie title */
-.container h4 {
+.movie-card-rating {
+  color: #ffd700;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.movie-card-info {
+  padding: 12px;
+}
+
+.movie-card-info h4 {
   margin: 0;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
+  font-size: 0.95rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 5px;
+}
+
+.movie-card-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  .search-results-container {
+    padding: 20px;
+  }
+
+  .search-results-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+  }
+
+  .movie-card-info h4 {
+    font-size: 0.85rem;
+  }
 }

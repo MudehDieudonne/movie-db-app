@@ -1,22 +1,20 @@
-.row {
-  margin-left: 10px;
-  color: white;
+.rows {
+  padding: 20px 40px;
 }
 
-.row.rows {
-  margin-top: -12em;
-  margin-bottom: 5em;
+.row-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
 }
 
-.row h2 {
-  margin-left: 15px;
-}
 .row-posters {
   display: flex;
   overflow-y: hidden;
   overflow-x: scroll;
-  gap: 8em;
-  padding: 20px;
+  padding: 20px 0;
+  gap: 20px;
 }
 
 .row-posters::-webkit-scrollbar {
@@ -24,67 +22,47 @@
 }
 
 .trendx {
-  display: flex;
-  gap: 1em;
-  max-width: 281px;
-  max-height: 298px;
   position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s;
 }
 
-.trend-num{
-  text-align: center;
-  font-weight: 1000;
-  font-size: 250px;
-  line-height: 298.34px;
+.trendx:hover {
+  transform: scale(1.05);
+}
+
+.trend-num {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  font-size: 8rem;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.8);
+  -webkit-text-stroke: 2px #fff;
+  z-index: -1;
+  line-height: 1;
 }
 
 .row-poster {
-  object-fit: cover;
-  position: absolute;
-  top: 97px;
-  left: 80px;
-  width: 138px;
-  height: 178px;
-  transition: transform 400ms;
-  border-radius: 12px;
-}
-.row-poster:hover {
-  transform: scale(1.1);
+  width: 150px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-.row__posterLarge {
-  max-height: 250px;
-}
-
-
-@keyframes autoScroll {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-.trendx {
-  animation: autoScroll 10s linear infinite;
-}
-
-.row-posters:hover {
-  animation-play-state: paused;
-}
-
-@media (max-width: 320px) {
-  .row.rows {
-    margin-top: -1em;
-    margin-bottom: 5em;
+@media (max-width: 768px) {
+  .rows {
+    padding: 10px 20px;
   }
 
-  .row-posters::-webkit-scrollbar {
-    display: none;
+  .trend-num {
+    font-size: 5rem;
+    bottom: -10px;
+    left: -10px;
   }
 
+  .row-poster {
+    width: 120px;
+  }
 }
