@@ -6,17 +6,18 @@ import { IoCloseCircleOutline, IoPause, IoPlay, IoSettingsOutline, IoRefresh, Io
 
 const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
-const Player = ({ movieId, type = 'movie', onClose }) => {
+const Player = ({ movieId, type = 'movie', onClose, initialSeason = 1, initialEpisode = 1 }) => {
     const [isPlaying, setIsPlaying] = useState(true);
     const [showSettings, setShowSettings] = useState(false);
     const [source, setSource] = useState('Source 2');
+    const [language, setLanguage] = useState('Sub'); // Default to Sub
     const [reloadKey, setReloadKey] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
 
     // Series state
     const [seasons, setSeasons] = useState([]);
-    const [currentSeason, setCurrentSeason] = useState(1);
-    const [currentEpisode, setCurrentEpisode] = useState(1);
+    const [currentSeason, setCurrentSeason] = useState(initialSeason);
+    const [currentEpisode, setCurrentEpisode] = useState(initialEpisode);
     const [episodesCount, setEpisodesCount] = useState(0);
     const [showSeasonDropdown, setShowSeasonDropdown] = useState(false);
     const [showEpisodeDropdown, setShowEpisodeDropdown] = useState(false);
@@ -26,16 +27,18 @@ const Player = ({ movieId, type = 'movie', onClose }) => {
             const fetchTVDetails = async () => {
                 try {
                     const response = await axios.get(`https://api.themoviedb.org/3/tv/${movieId}?api_key=${apiKey}`);
-                    setSeasons(response.data.seasons.filter(s => s.season_number > 0)); // Remove Specials
-                    const s1 = response.data.seasons.find(s => s.season_number === 1);
-                    setEpisodesCount(s1 ? s1.episode_count : 0);
+                    const allSeasons = response.data.seasons.filter(s => s.season_number > 0);
+                    setSeasons(allSeasons);
+
+                    const startSeason = allSeasons.find(s => s.season_number === currentSeason);
+                    setEpisodesCount(startSeason ? startSeason.episode_count : 0);
                 } catch (err) {
                     console.error("Failed to fetch TV details:", err);
                 }
             };
             fetchTVDetails();
         }
-    }, [movieId, type]);
+    }, [movieId, type, currentSeason]);
 
     const handleSeasonChange = async (sNum, eCount) => {
         setCurrentSeason(sNum);
@@ -45,12 +48,28 @@ const Player = ({ movieId, type = 'movie', onClose }) => {
         setReloadKey(prev => prev + 1);
     };
 
+    const handleNextEpisode = () => {
+        if (currentEpisode < episodesCount) {
+            setCurrentEpisode(prev => prev + 1);
+        } else {
+            // Check if there's a next season
+            const currentIdx = seasons.findIndex(s => s.season_number === currentSeason);
+            if (currentIdx !== -1 && currentIdx < seasons.length - 1) {
+                const nextSeason = seasons[currentIdx + 1];
+                handleSeasonChange(nextSeason.season_number, nextSeason.episode_count);
+            }
+        }
+        setReloadKey(prev => prev + 1);
+    };
+
     const sources = {
         'Source 1': type === 'movie' ? `https://vidsrc.pro/embed/movie/${movieId}` : `https://vidsrc.pro/embed/tv/${movieId}/${currentSeason}/${currentEpisode}`,
         'Source 2': type === 'movie' ? `https://vidsrc.cc/v2/embed/movie/${movieId}` : `https://vidsrc.cc/v2/embed/tv/${movieId}/${currentSeason}/${currentEpisode}`,
         'Source 3': type === 'movie' ? `https://vidsrc.me/embed/movie?tmdb=${movieId}` : `https://vidsrc.me/embed/tv?tmdb=${movieId}&s=${currentSeason}&e=${currentEpisode}`,
         'Source 4': type === 'movie' ? `https://vidsrc.xyz/embed/movie?tmdb=${movieId}` : `https://vidsrc.xyz/embed/tv?tmdb=${movieId}&s=${currentSeason}&e=${currentEpisode}`
     };
+
+    // If source supports language param, we'd add it here. e.g. src={sources[source] + (language === 'Dub' ? '&lang=dub' : '')}
 
     const handleReload = () => {
         setReloadKey(prev => prev + 1);
@@ -96,8 +115,22 @@ const Player = ({ movieId, type = 'movie', onClose }) => {
                                         </div>
                                     )}
                                 </div>
+                                <button className="player-btn next-btn" onClick={handleNextEpisode}>
+                                    Next <IoPlay />
+                                </button>
                             </div>
                         )}
+
+                        <div className="player-lang-selector">
+                            <button
+                                className={`lang-btn ${language === 'Sub' ? 'active' : ''}`}
+                                onClick={() => { setLanguage('Sub'); setReloadKey(prev => prev + 1); }}
+                            >Sub</button>
+                            <button
+                                className={`lang-btn ${language === 'Dub' ? 'active' : ''}`}
+                                onClick={() => { setLanguage('Dub'); setReloadKey(prev => prev + 1); }}
+                            >Dub</button>
+                        </div>
 
                         <div className="source-selector">
                             <button className="player-btn" onClick={() => setShowSettings(!showSettings)}>
@@ -149,6 +182,28 @@ const Player = ({ movieId, type = 'movie', onClose }) => {
                         </div>
                     )}
                 </div>
+
+                {type === 'tv' && (
+                    <div className="player-watch-episodes">
+                        <div className="player-episodes-grid">
+                            {[...Array(episodesCount)].map((_, i) => {
+                                const epNum = i + 1;
+                                return (
+                                    <div
+                                        key={epNum}
+                                        className={`player-ep-box ${currentEpisode === epNum ? 'active' : ''}`}
+                                        onClick={() => {
+                                            setCurrentEpisode(epNum);
+                                            setReloadKey(prev => prev + 1);
+                                        }}
+                                    >
+                                        {epNum}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
             </div>
             <div className={`player-hint ${isHovered ? 'visible' : ''}`}>
                 <p>TIP: If a source doesn&apos;t work, try switching to another Source from the settings menu.</p>
@@ -161,6 +216,8 @@ Player.propTypes = {
     movieId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     type: PropTypes.string,
     onClose: PropTypes.func.isRequired,
+    initialSeason: PropTypes.number,
+    initialEpisode: PropTypes.number,
 };
 
 export default Player;

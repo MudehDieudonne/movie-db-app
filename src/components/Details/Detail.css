@@ -11,7 +11,10 @@
   position: relative;
   display: flex;
   align-items: flex-end;
-  padding: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+  margin-top: 50px;
+
 }
 
 .detail-hero-content {
@@ -34,11 +37,6 @@
 .detail-poster-img {
   width: 100%;
   display: block;
-  transition: transform 0.3s;
-}
-
-.detail-poster-img:hover {
-  transform: scale(1.05);
 }
 
 .detail-info {
@@ -70,6 +68,22 @@
   border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
+.genres-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.genre-pill {
+  padding: 4px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #eee;
+}
+
 .action-buttons {
   display: flex;
   gap: 20px;
@@ -89,17 +103,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  transition: transform 0.2s, background-color 0.2s;
-}
-
-.watch-now-btn:hover {
-  transform: scale(1.05);
-  background-color: #ffed4a;
-}
-
-.secondary-actions {
-  display: flex;
-  gap: 15px;
 }
 
 .action-icon-btn {
@@ -114,12 +117,6 @@
   align-items: center;
   font-size: 1.4rem;
   cursor: pointer;
-  transition: all 0.3s;
-}
-
-.action-icon-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-3px);
 }
 
 .action-icon-btn.active {
@@ -128,63 +125,192 @@
   background: rgba(255, 215, 0, 0.1);
 }
 
+/* Bottom Content Area */
+.detail-content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 5%;
+}
+
+.detail-main-info {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
 .detail-overview {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #eee;
-  max-width: 800px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #bbb;
+  max-width: 900px;
 }
 
-.more-like-this-section {
-  padding: 50px;
+/* 4anime Episode Grid */
+.episode-selector-section {
+  background: #0a0a0a;
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid #1a1a1a;
 }
 
-.detail-error {
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #222;
+}
+
+.section-header h3 {
+  font-size: 1.4rem;
+  color: #fff;
+  margin: 0;
+  font-weight: 700;
+}
+
+.season-dropdown-select {
+  background: #111;
+  color: #ffd700;
+  border: 1px solid #333;
+  padding: 8px 15px;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.episode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 12px;
+}
+
+.episode-box {
+  background: #151515;
+  color: #888;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  font-size: 2rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid #222;
 }
 
-@media (max-width: 992px) {
+.episode-box:hover {
+  background: #222;
+  color: #fff;
+  border-color: #ffd700;
+}
+
+.episode-box.active {
+  background: #ffd700;
+  color: #000;
+  border-color: #ffd700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+/* Cast Section Slider */
+.cast-section h3 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.cast-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 15px;
+}
+
+.cast-list::-webkit-scrollbar {
+  height: 4px;
+}
+
+.cast-list::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+.cast-card {
+  flex-shrink: 0;
+  width: 100px;
+  text-align: center;
+}
+
+.cast-card img {
+  width: 100px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: 1px solid #222;
+}
+
+.cast-card p {
+  font-size: 0.8rem;
+  color: #aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.more-like-this-section {
+  padding: 60px 0;
+  border-top: 1px solid #1a1a1a;
+}
+
+/* Combined Responsive Layout */
+@media (max-width: 900px) {
   .detail-hero-content {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  .detail-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .detail-hero {
-    height: auto;
-    padding-top: 100px;
+  .detail-poster-container {
+    width: 150px;
   }
 
   .detail-title {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
   }
 
+  .detail-meta,
+  .genres-list,
   .action-buttons {
-    flex-direction: column;
+    justify-content: center;
   }
 }
 
-@media (max-width: 768px) {
-  .detail-poster-container {
-    width: 200px;
-  }
-
+@media (max-width: 600px) {
   .detail-hero {
-    padding: 20px;
-    padding-top: 80px;
+    height: auto;
+    min-height: 400px;
+    padding-top: 60px;
+    background-size: cover;
+    background-position: center;
   }
 
-  .more-like-this-section {
+  .detail-content-wrapper {
     padding: 20px;
+  }
+
+  .episode-selector-section {
+    padding: 20px;
+  }
+
+  .episode-grid {
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 8px;
+  }
+
+  .episode-box {
+    height: 45px;
+    font-size: 0.8rem;
   }
 }

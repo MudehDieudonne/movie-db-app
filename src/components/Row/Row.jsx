@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import Loader from "../Loader/Loader"
-import { Router, Route, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import PropTypes from 'prop-types'
 import "./Row.css"
 
 const baseUrl = "https://image.tmdb.org/t/p/original"
@@ -78,6 +79,13 @@ const Row = ({ title, fetchUrl, isLargeRow, movies: initialMovies }) => {
       )}
     </div>
   )
+}
+
+Row.propTypes = {
+  title: PropTypes.string.isRequired,
+  fetchUrl: PropTypes.string,
+  isLargeRow: PropTypes.bool,
+  movies: PropTypes.array,
 }
 
 export default Row

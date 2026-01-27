@@ -3,6 +3,7 @@ import axios from "axios"
 import Loader from "../Loader/Loader"
 import "./Rows.css"
 import { useNavigate } from "react-router-dom"
+import PropTypes from 'prop-types'
 
 const baseUrl = "https://image.tmdb.org/t/p/original"
 
@@ -21,6 +22,7 @@ const Rows = ({ title, fetchUrl, isLargeRow }) => {
         setError(null)
       } catch (err) {
         setError("Failed to fetch movies.")
+        console.error(err)
       } finally {
         setIsLoading(false)
       }
@@ -61,6 +63,12 @@ const Rows = ({ title, fetchUrl, isLargeRow }) => {
       )}
     </div>
   )
+}
+
+Rows.propTypes = {
+  title: PropTypes.string.isRequired,
+  fetchUrl: PropTypes.string.isRequired,
+  isLargeRow: PropTypes.bool,
 }
 
 export default Rows

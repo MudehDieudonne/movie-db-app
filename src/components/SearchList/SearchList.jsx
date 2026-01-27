@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types'
 import "./SearchList.css";
 
 const baseUrl = "https://image.tmdb.org/t/p/w500";
@@ -36,5 +37,9 @@ const MovieList = ({ movies }) => {
     </div>
   );
 };
+
+MovieList.propTypes = {
+  movies: PropTypes.array.isRequired,
+}
 
 export default MovieList;

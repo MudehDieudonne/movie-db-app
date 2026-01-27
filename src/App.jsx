@@ -7,10 +7,9 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/footer";
 import Rows from "./components/Rows/Rows";
 import MovieList from "./components/SearchList/SearchList";
-import Detail from "./components/Details/Details";// Import the Detail component
+import Detail from "./components/Details/Details";
 import { motion } from "motion/react";
 import "./App.css";
-import Search from "./components/Search/Search";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -47,7 +46,7 @@ function App() {
         transition={{ duration: 1 }}
         className="app-container"
       >
-        <Navbar />
+        <Navbar searchValue={searchValue} setSearchValue={setSearchValue} />
 
         <main className="main-content">
           <Routes>
@@ -55,7 +54,6 @@ function App() {
               path="/"
               element={
                 <>
-                  <Search searchValue={searchValue} setSearchValue={setSearchValue} />
                   {searchValue ? (
                     <MovieList movies={movies} />
                   ) : (

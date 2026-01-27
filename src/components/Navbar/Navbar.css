@@ -16,6 +16,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
+}
+
+/* Ensure the search bar takes the center spot */
+.navbar-container>.search-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
@@ -77,10 +85,11 @@
 
   .nav-links {
     position: fixed;
-    top: 70px;
+    top: 60px;
+    /* Reduced */
     right: -100%;
     width: 100%;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 60px);
     background: #000;
     flex-direction: column;
     align-items: center;
@@ -93,10 +102,18 @@
   }
 
   .nav-link {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    /* Reduced from 1.5 */
   }
 
   .navbar-container {
-    padding: 15px 20px;
+    padding: 10px 15px;
+    /* Reduced padding */
+    gap: 10px;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+    /* Reduced from 1.8 */
   }
 }
