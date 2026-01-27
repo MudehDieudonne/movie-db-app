@@ -97,6 +97,15 @@
 }
 
 @media (max-width: 768px) {
+  .row__poster_wrapper {
+    min-width: 100px;
+  }
+
+  .row__poster_wrapper.large {
+    min-width: 140px;
+
+  }
+
   .trend-num {
     font-size: 5rem;
     bottom: -10px;

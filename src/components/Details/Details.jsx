@@ -24,8 +24,17 @@ const Detail = () => {
   const [isLiked, setIsLiked] = useState(false)
   const [isBookmarked, setIsBookmarked] = useState(false)
 
+  const fetchSeasonData = useCallback(async (seasonNumber) => {
+    try {
+      const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}?api_key=${apiKey}`);
+      setEpisodes(response.data.episodes);
+      setSelectedSeason(parseInt(seasonNumber));
+    } catch (err) {
+      console.error("Failed to fetch season data:", err);
+    }
+  }, [id]);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
     const favorites = JSON.parse(localStorage.getItem('favorites') || '[]')
     const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]')
     setIsLiked(favorites.some(fav => fav.id === parseInt(id)))
@@ -57,16 +66,6 @@ const Detail = () => {
 
     fetchAllData();
   }, [id, initialMovie, fetchSeasonData]);
-
-  const fetchSeasonData = useCallback(async (seasonNumber) => {
-    try {
-      const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}?api_key=${apiKey}`);
-      setEpisodes(response.data.episodes);
-      setSelectedSeason(parseInt(seasonNumber));
-    } catch (err) {
-      console.error("Failed to fetch season data:", err);
-    }
-  }, [id]);
 
   const handlePlayEpisode = (s, e) => {
     setStartEpisode({ season: s, episode: e });
