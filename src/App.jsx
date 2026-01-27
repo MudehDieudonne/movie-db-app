@@ -20,7 +20,8 @@ function App() {
       setMovies([])
       return
     }
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=eab119f4519b3c48189fd1039aea8fed&query=${searchValue}`
+    const apiKey = import.meta.env.VITE_TMDB_API_KEY || "eab119f4519b3c48189fd1039aea8fed";
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchValue}`
 
     const res = await fetch(url)
     const data = await res.json()
@@ -49,32 +50,34 @@ function App() {
         <Navbar searchValue={searchValue} setSearchValue={setSearchValue} />
 
         <main className="main-content">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  {searchValue ? (
-                    <MovieList movies={movies} />
-                  ) : (
-                    <>
-                      <Banner />
-                      <div className="rows-container">
-                        <Rows title="Latest & Trending" fetchUrl={Requests.fetchTrending} />
-                        <Row title="Top Rated" fetchUrl={Requests.fetchTopRated} />
-                        <Row title="Action" fetchUrl={Requests.fetchAnimationMovies} />
-                        <Row title="Romance & Drama" fetchUrl={Requests.fetchRomanceMovies} />
-                        <Row title="Fantasy" fetchUrl={Requests.fetchNetflixOriginals} />
-                      </div>
-                    </>
-                  )}
-                </>
-              }
-            />
-            <Route path="/detail/:id" element={<Detail />} />
-            <Route path="/trending" element={<div className="coming-soon">Trending Page Coming Soon</div>} />
-            <Route path="/favorites" element={<div className="coming-soon">Favorites Page Coming Soon</div>} />
-          </Routes>
+          <div className="container">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    {searchValue ? (
+                      <MovieList movies={movies} />
+                    ) : (
+                      <>
+                        <Banner />
+                        <div className="rows-container">
+                          <Rows title="Latest & Trending" fetchUrl={Requests.fetchTrending} />
+                          <Row title="Top Rated" fetchUrl={Requests.fetchTopRated} />
+                          <Row title="Action" fetchUrl={Requests.fetchAnimationMovies} />
+                          <Row title="Romance & Drama" fetchUrl={Requests.fetchRomanceMovies} />
+                          <Row title="Fantasy" fetchUrl={Requests.fetchNetflixOriginals} />
+                        </div>
+                      </>
+                    )}
+                  </>
+                }
+              />
+              <Route path="/detail/:id" element={<Detail />} />
+              <Route path="/trending" element={<div className="coming-soon">Trending Page Coming Soon</div>} />
+              <Route path="/favorites" element={<div className="coming-soon">Favorites Page Coming Soon</div>} />
+            </Routes>
+          </div>
         </main>
 
         <Footer />

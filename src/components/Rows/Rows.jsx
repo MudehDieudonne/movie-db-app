@@ -48,12 +48,18 @@ const Rows = ({ title, fetchUrl, isLargeRow }) => {
           {movies.length > 0 ? (
             movies.map((movie, index) => (
               <div className="trendx" key={movie.id} onClick={() => handleClick(movie)}>
-                <span className="trend-num">{index + 1}</span>
-                <img
-                  className={`row-poster ${isLargeRow && "row__posterLarge"}`}
-                  src={`${baseUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
-                  alt={movie.name || movie.title}
-                />
+                {(title.includes("Latest") || title.includes("Trending")) && (
+                  <span className="trend-num">{index + 1}</span>
+                )}
+                <div className={`row__poster_wrapper skeleton ${isLargeRow ? 'large' : ''}`}>
+                  <img
+                    className={`row-poster ${isLargeRow && "row__posterLarge"}`}
+                    src={`${baseUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
+                    alt={movie.name || movie.title}
+                    loading="lazy"
+                    onLoad={(e) => e.target.parentElement.classList.remove('skeleton')}
+                  />
+                </div>
               </div>
             ))
           ) : (

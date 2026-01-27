@@ -5,22 +5,21 @@
 }
 
 .detail-hero {
-  height: 80vh;
+  min-height: 80vh;
   background-size: cover;
   background-position: center;
   position: relative;
   display: flex;
   align-items: flex-end;
-  padding-right: 50px;
-  padding-left: 50px;
-  margin-top: 50px;
-
+  padding: 100px 40px 40px;
+  /* Aligned padding */
+  margin-top: 0;
 }
 
 .detail-hero-content {
   display: flex;
   gap: 40px;
-  max-width: 1200px;
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
   align-items: flex-end;
@@ -127,9 +126,10 @@
 
 /* Bottom Content Area */
 .detail-content-wrapper {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 5%;
+  padding: 40px;
+  /* Aligned padding */
 }
 
 .detail-main-info {

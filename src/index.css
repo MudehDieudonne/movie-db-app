@@ -31,8 +31,23 @@ body {
   min-height: 100vh;
 }
 
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
 .main-content {
   flex: 1;
+  padding-top: 80px;
+  /* Account for fixed navbar */
 }
 
 .coming-soon {

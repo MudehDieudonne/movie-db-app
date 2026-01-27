@@ -14,16 +14,18 @@
   background: linear-gradient(-45deg, #00000080, #0000002a);
 }
 
-.row h2 {
-  margin-left: 15px;
+.row__title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
 .row__posters {
   display: flex;
   overflow-y: hidden;
   overflow-x: scroll;
-  gap: 1em;
-  padding: 20px;
+  padding: 10px 0;
+  gap: 15px;
 }
 
 .row__posters::-webkit-scrollbar {
@@ -32,10 +34,12 @@
 
 .row__poster {
   object-fit: contain;
-  width: 251px;
-  max-height: 171px;
+  width: 100%;
+  max-height: 180px;
   transition: transform 400ms;
-  border-radius: 12px;
+  border-radius: 8px;
+  background: #111;
+  /* Loading placeholder */
 }
 
 .row__poster:hover {
@@ -43,32 +47,53 @@
 }
 
 .row__posterLarge {
-  max-height: 250px;
+  max-height: 320px;
 }
 
 .trendx {
   position: relative;
   flex-shrink: 0;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: flex;
   align-items: flex-end;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .trendx:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  z-index: 10;
 }
 
 .trend-num {
   position: absolute;
-  bottom: -20px;
-  left: -20px;
-  font-size: 8rem;
+  bottom: -15px;
+  left: -5px;
+  font-size: 6rem;
   font-weight: 900;
-  color: rgba(0, 0, 0, 0.8);
-  -webkit-text-stroke: 2px #fff;
-  z-index: -1;
+  color: #000;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.5);
+  z-index: 5;
+  pointer-events: none;
   line-height: 1;
+}
+
+/* Skeleton Loading Effect */
+.skeleton {
+  background: linear-gradient(90deg, #111 25%, #222 50%, #111 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 @media (max-width: 768px) {
