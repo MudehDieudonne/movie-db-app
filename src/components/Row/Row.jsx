@@ -1,30 +1,34 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import Loader from "../Loader/Loader"
-import { Router, Route, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import PropTypes from 'prop-types'
 import "./Row.css"
 
 const baseUrl = "https://image.tmdb.org/t/p/original"
 
-const Row = ({ title, fetchUrl, isLargeRow }) => {
-  const [movies, setMovies] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [filteredMovies, setFilteredMovies] = useState([])
+const Row = ({ title, fetchUrl, isLargeRow, movies: initialMovies }) => {
+  const [movies, setMovies] = useState(initialMovies || [])
+  const [isLoading, setIsLoading] = useState(!initialMovies)
   const [error, setError] = useState(null)
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Optional: Create an AbortController to cancel the request if the component unmounts
+    if (!fetchUrl) {
+      if (initialMovies) {
+        setMovies(initialMovies);
+        setIsLoading(false);
+      }
+      return;
+    }
+
     const abortController = new AbortController()
 
     async function fetchData() {
       try {
         setIsLoading(true)
         const request = await axios.get(fetchUrl)
-        
         setMovies(request.data.results || [])
-        setFilteredMovies(request.data.results)
-
         setError(null)
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -38,50 +42,56 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
 
     fetchData()
 
-    // Cleanup function to cancel the request if the component unmounts
     return () => {
       abortController.abort()
     }
-  }, [fetchUrl])
+  }, [fetchUrl, initialMovies])
 
   const handleClick = (movie) => {
     navigate(`/detail/${movie.id}`, { state: { movie } })
-    console.log(movie)
-  }
-
-  const handleSearch = query => {
-    const filtered = movies.filter((movie) => {
-      movie.title.toLowerCase().includes(query.toLowerCase())
-    })
-    setFilteredMovies(filtered)
+    window.scrollTo(0, 0);
   }
 
   return (
     <div className="row">
-      <h2>{title}</h2>
+      <h2 className="row__title">{title}</h2>
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <div>{error}</div>
+        <div className="row__error">{error}</div>
       ) : (
         <div className="row__posters">
           {movies.length > 0 ? (
-            movies.map((movie) => (
-              <img
-                key={movie.id}
-                onClick={() => handleClick(movie)}
-                className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-                src={`${baseUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
-                alt={movie.name || movie.title}
-              />
+            movies.map((movie, index) => (
+              <div className="trendx" key={movie.id} onClick={() => handleClick(movie)}>
+                {(title.includes("Latest") || title.includes("Trending")) && (
+                  <span className="trend-num">{index + 1}</span>
+                )}
+                <div className={`row__poster_wrapper skeleton ${isLargeRow ? 'large' : ''}`}>
+                  <img
+                    className={`row__poster ${isLargeRow && "row__posterLarge"}`}
+                    src={`${baseUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
+                    alt={movie.name || movie.title}
+                    loading="lazy"
+                    onLoad={(e) => e.target.parentElement.classList.remove('skeleton')}
+                  />
+                </div>
+              </div>
             ))
           ) : (
-            <div>No movies found.</div>
+            <div className="row__empty">No movies found.</div>
           )}
         </div>
       )}
     </div>
   )
+}
+
+Row.propTypes = {
+  title: PropTypes.string.isRequired,
+  fetchUrl: PropTypes.string,
+  isLargeRow: PropTypes.bool,
+  movies: PropTypes.array,
 }
 
 export default Row
